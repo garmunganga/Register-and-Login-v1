@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
   }
   
+  var port = process.env.PORT || 8080;
   const express = require('express')
   const app = express()
   const bcrypt = require('bcryptjs')
@@ -23,7 +24,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(express.urlencoded({ extended: false }))
   app.use(flash())
   app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET=secret,
     resave: false,
     saveUninitialized: false
   }))
@@ -84,4 +85,6 @@ if (process.env.NODE_ENV !== 'production') {
     next()
   }
   
-  app.listen(3000)
+  app.listen(port, function() {
+    console.log('Our app is running on http://localhost:' + port);
+});
